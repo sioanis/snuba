@@ -9,6 +9,7 @@ import {
   ClickhouseNodeData,
   QueryRequest,
   QueryResult,
+  QueryOption,
 } from "./components/query_display/types";
 
 interface Client {
@@ -18,6 +19,7 @@ interface Client {
   editConfig: (key: ConfigKey, value: ConfigValue) => Promise<Config>;
   getAuditlog: () => Promise<ConfigChange[]>;
   getClickhouseNodes: () => Promise<[ClickhouseNodeData]>;
+  getPredefinedQueryOptions: () => Promise<[QueryOption]>;
   executeQuery: (req: QueryRequest, endpoint: string) => Promise<QueryResult>;
 }
 
@@ -91,6 +93,10 @@ function Client() {
             return res.filter((storage: any) => storage.local_nodes.length > 0);
           })
       );
+    },
+    getPredefinedQueryOptions: () => {
+      const url = baseUrl + "clickhouse_queries";
+      return fetch(url).then((resp) => resp.json());
     },
     executeQuery: (query: QueryRequest, query_endpoint: string) => {
       const url = baseUrl + query_endpoint;

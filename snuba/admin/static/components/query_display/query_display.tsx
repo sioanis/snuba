@@ -11,6 +11,7 @@ function QueryDisplay(props: {
   api: Client;
   endpoint: string;
   resultDataPopulator: (queryResult: QueryResult) => JSX.Element;
+  predefinedQuery?: string;
 }) {
   const [nodeData, setNodeData] = useState<ClickhouseNodeData[]>([]);
   const [query, setQuery] = useState<QueryState>({});
@@ -23,6 +24,12 @@ function QueryDisplay(props: {
       setNodeData(res);
     });
   }, []);
+
+  useEffect(() => {
+    if (props.predefinedQuery) {
+      setQuery({ sql: props.predefinedQuery });
+    }
+  }, [props.predefinedQuery]);
 
   function selectStorage(storage: string) {
     setQuery((prevQuery) => {
@@ -63,7 +70,7 @@ function QueryDisplay(props: {
       })
       .catch((err) => {
         console.log("ERROR", err);
-        window.alert("An error occurred: " + err.error.message);
+        window.alert("An error occurred: " + err.error);
       });
   }
 

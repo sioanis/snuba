@@ -9,6 +9,12 @@ type ClickhouseNodeData = {
   local_nodes: ClickhouseNode[];
 };
 
+type QueryOption = {
+  name: string;
+  sql: string;
+  description: string;
+};
+
 type QueryRequest = {
   storage: string;
   host: string;
@@ -28,4 +34,4 @@ type QueryResult = {
   error?: string;
 };
 
-export { ClickhouseNodeData, QueryRequest, QueryResult };
+export { ClickhouseNodeData, QueryRequest, QueryResult, QueryOption };

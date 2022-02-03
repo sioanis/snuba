@@ -14,10 +14,10 @@ from snuba.admin.clickhouse.common import (
     InvalidStorageError,
 )
 from snuba.admin.clickhouse.nodes import get_storage_info
+from snuba.admin.clickhouse.predefined_system_queries import SystemQuery
 from snuba.admin.clickhouse.system_queries import (
     InvalidResultError,
     NonExistentSystemQuery,
-    SystemQuery,
     run_system_query_on_host_by_name,
     run_system_query_on_host_with_sql,
 )
